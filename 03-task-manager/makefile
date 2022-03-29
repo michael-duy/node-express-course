@@ -7,4 +7,4 @@ down:
 stop:
 	docker-compose stop
 node-bash:
-	docker exec -it backend-container sh
+	docker exec -it node-container sh

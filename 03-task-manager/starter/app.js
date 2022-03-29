@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const tasks = require('./routes/tasks');
-// const connectDB = require('./db/connect');
+const connectDB = require('./db/connect');
 // require('dotenv').config();
 // const notFound = require('./middleware/not-found');
 // const errorHandlerMiddleware = require('./middleware/error-handler');
@@ -18,10 +18,12 @@ app.use('/api/v1/tasks', tasks);
 // app.use(notFound);
 // app.use(errorHandlerMiddleware);
 const port = process.env.PORT || 3000;
+const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/example";
 
 const start = async () => {
   try {
-    // await connectDB(process.env.MONGO_URI);
+    await connectDB(mongoUri);
+    console.log("connect database");
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
     );
