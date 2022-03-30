@@ -8,7 +8,6 @@ services:
   node-service:
     build: ./starter
     container_name: node-container
-    tty: true
     volumes:
       - ./starter:/user/wwww
       - /user/wwww/node_modules
