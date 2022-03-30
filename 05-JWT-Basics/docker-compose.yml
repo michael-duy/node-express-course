@@ -1,0 +1,31 @@
+version: '3.9'
+
+networks:
+  node-network:
+    driver: bridge
+
+services:
+  node-service:
+    build: ./starter
+    container_name: node-container
+    volumes:
+      - ./starter:/user/wwww
+      - /user/wwww/node_modules
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    networks:
+      - node-network
+    environment:
+      - HOST=3000
+      - MONGO_URI=mongodb://mongo-service:27017/example
+  mongo-service:
+    container_name: mongo-container
+    image: mongo
+    restart: unless-stopped
+    volumes:
+      - ./starter/data:/data/db
+    ports:
+      - '27017:27017'
+    networks:
+      - node-network
